@@ -22,6 +22,7 @@ export default defineNuxtConfig({
                 language: 'en-US',
                 name: 'English',
                 files: [
+                    'en/contact.ts',
                     'en/header.ts',
                     'en/footer.ts',
                 ],
@@ -31,6 +32,7 @@ export default defineNuxtConfig({
                 language: 'th-TH',
                 name: 'ไทย',
                 files: [
+                    'th/contact.ts',
                     'th/header.ts',
                     'th/footer.ts',
                 ],
