@@ -1,17 +1,16 @@
 <template>
   <UCard class="max-w-4xl mx-auto my-24 p-6">
-    <h1 class="text-2xl font-bold text-center mb-8">Contact List</h1>
+    <h1 class="text-2xl font-bold text-center mb-8"> {{ $t('contact.list') }}</h1>
 
     <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700 items-center space-x-2">
-      <UInput v-model="searchQuery" class="flex-1" placeholder="Search Name..."/>
+      <UInput v-model="searchQuery" :placeholder="t('contact.search_placeholder')" class="flex-1"/>
       <UButton
+          :label="t('common.clear')"
           class="hover:bg-red-600 hover:text-white"
           color="gray"
           variant="outline"
           @click="clearSearch"
-      >
-        Clear
-      </UButton>
+      />
     </div>
 
     <UTable :columns="columns" :rows="paginatedRows"
@@ -21,8 +20,8 @@
       </template>
       <template #empty-state>
         <div class="flex flex-col items-center justify-center py-6 gap-3">
-          <span class="italic text-sm">No one here!</span>
-          <UButton label="Add people" to="./create"/>
+          <span class="italic text-sm">{{ $t('common.no_data') }}</span>
+          <UButton :label="t('common.add_people')" to="./create"/>
         </div>
       </template>
     </UTable>
@@ -40,18 +39,20 @@
 <script lang="ts" setup>
 import {computed, ref} from 'vue'
 import {people as initialPeople} from '@/data/people'
+import {useI18n} from 'vue-i18n'
 
+const {t} = useI18n()
 const searchQuery = ref('')
 const page = ref(1)
 const itemsPerPage = 20
 const people = ref([...initialPeople])
 
-const columns = [
-  {key: 'id', label: 'ID'},
-  {key: 'name', label: 'Name'},
-  {key: 'age', label: 'Age'},
+const columns = computed(() => [
+  {key: 'id', label: t('contact.table.id')},
+  {key: 'name', label: t('contact.table.name')},
+  {key: 'age', label: t('contact.table.age')},
   {key: 'actions', label: ''}
-]
+])
 
 const deletePerson = (id: number) => {
   people.value = people.value.filter(person => person.id !== id)
